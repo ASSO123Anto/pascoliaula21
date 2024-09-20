@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AULA 21 PASCOLI - Prenotazioni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .prenotazioni {
+            margin-top: 20px;
+        }
+        .prenotazione {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AULA 21 PASCOLI - Prenotazioni</h1>
+
+        <div id="prenotazioniEsistenti">
+            <h2>Prenotazioni Esistenti</h2>
+            <p id="nessunaPrenotazione">Nessuna prenotazione al momento.</p>
+        </div>
+
+        <div id="formPrenotazione">
+            <h2>Effettua una Prenotazione</h2>
+            <div class="form-group">
+                <label for="nomeCognome">Nome e Cognome</label>
+                <input type="text" id="nomeCognome" required>
+            </div>
+            <div class="form-group">
+                <label for="dataPrenotazione">Data</label>
+                <input type="date" id="dataPrenotazione" required>
+            </div>
+            <div class="form-group">
+                <label for="oraInizio">Ora di inizio</label>
+                <input type="time" id="oraInizio" required>
+            </div>
+            <div class="form-group">
+                <label for="oraFine">Ora di fine</label>
+                <input type="time" id="oraFine" required>
+            </div>
+            <button class="btn" onclick="aggiungiPrenotazione()">Prenota</button>
+        </div>
+    </div>
+
+    <script>
+        function aggiungiPrenotazione() {
+            // Ottenere i valori dei campi
+            const nomeCognome = document.getElementById('nomeCognome').value;
+            const dataPrenotazione = document.getElementById('dataPrenotazione').value;
+            const oraInizio = document.getElementById('oraInizio').value;
+            const oraFine = document.getElementById('oraFine').value;
+
+            // Controllo che tutti i campi siano compilati
+            if (nomeCognome === '' || dataPrenotazione === '' || oraInizio === '' || oraFine === '') {
+                alert('Per favore, compila tutti i campi.');
+                return;
+            }
+
+            // Rimuovere il messaggio di nessuna prenotazione
+            const nessunaPrenotazione = document.getElementById('nessunaPrenotazione');
+            if (nessunaPrenotazione) {
+                nessunaPrenotazione.remove();
+            }
+
+            // Creare un nuovo elemento per la prenotazione
+            const prenotazione = document.createElement('div');
+            prenotazione.className = 'prenotazione';
+            prenotazione.innerHTML = `
+                <strong>${nomeCognome}</strong><br>
+                Data: ${dataPrenotazione}<br>
+                Ora: ${oraInizio} - ${oraFine}
+            `;
+
+            // Aggiungere la prenotazione alla lista delle prenotazioni esistenti
+            const prenotazioniEsistenti = document.getElementById('prenotazioniEsistenti');
+            prenotazioniEsistenti.appendChild(prenotazione);
+
+            // Resettare i campi del modulo
+            document.getElementById('nomeCognome').value = '';
+            document.getElementById('dataPrenotazione').value = '';
+            document.getElementById('oraInizio').value = '';
+            document.getElementById('oraFine').value = '';
+        }
+    </script>
+</body>
+</html>
